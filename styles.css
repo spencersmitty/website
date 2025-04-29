@@ -76,7 +76,7 @@ p {
 .wave-text span{
   display: inline-block;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   white-space: nowrap;
   animation: wave 5s ease-in-out infinite, glimmer 3s ease-in-out infinite;
 }
