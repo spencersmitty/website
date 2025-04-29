@@ -4,45 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap" rel="stylesheet" />
     <title>smitty</title>
-
-    <!-- set SVG as favicon for all sizes -->
-    <link rel="icon" href="media/icons/favicon.svg" type="image/svg+xml">
-
+    <link rel="icon" href="media/icons/favicon.ico" type="image/x-icon" />
     <style>
-      /* default favicon behavior */
-      link[rel="icon"] {
-        color: #000000; /* black for light mode */
-      }
-
-      /* invert favicon color for dark mode */
-      @media (prefers-color-scheme: dark) {
-        link[rel="icon"] {
-          filter: invert(1) brightness(100);
-        }
-      }
-
-      /* font for header */
       h1 {
-        font-family: 'BIZ UDPMincho', serif; /* fallback to serif */
+        font-family: "BIZ UDPMincho", serif;
       }
     </style>
-    
   </head>
-
   <body>
+    <section class="intro">
+      <h1>smitty</h1>
 
-    <h1>smitty</h1>
-    
-    <!-- caution tape divider -->
-    <div class="caution-tape"></div>
-    
-    <p>under construction<br />この愚かな猿を見よ</p>
+      <div class="caution-tape"></div>
 
-    <!-- monke -->
-    <img id="monke" src="media/monke.gif" alt="monke" />
+      <p>under construction<br />準備中</p>
+
+      <!-- The TV frame with a click event -->
+      <div id="tv" class="tv-frame" style="cursor: pointer;">
+        <img src="media/tv.png" class="frame" alt="tv frame" />
+        <img src="media/video.gif" class="screen" alt="tv content" />
+      </div>
+
+      <p class="wave-text">click/tap tv to leave a message &lt;3   </p>
+    </section>
+
+    <!-- JavaScript to handle the chat popup -->
+    <script>
+      document.getElementById("tv").addEventListener("click", () => {
+        const chatWindow = window.open("https://www3.cbox.ws/box/?boxid=3546133&boxtag=UkIQjc", 
+                                      "chat", 
+                                      "width=400,height=600,scrollbars=yes,resizable=yes");
+        if (!chatWindow) {
+          alert("Please allow pop-ups for this site.");
+        }
+      });
+    </script>
 
     <script src="script.js"></script>
   </body>
