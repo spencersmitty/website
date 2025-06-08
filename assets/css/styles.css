@@ -1,0 +1,606 @@
+/* main styles */
+
+/* css variables for sizing and colors */
+:root {
+  --pvm-graphic-width: 400px;
+  --sunlight-color: rgba(255, 200, 50, 0.7);
+  --sunlight-border: rgba(255, 200, 50, 0.5);
+  --sunlight-shadow: rgba(255, 200, 50, 0.4);
+  --sunlight-hover: rgba(255, 220, 80, 0.9);
+  --sunlight-hover-shadow: rgba(255, 200, 50, 0.7);
+}
+
+/* base styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+  font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  opacity: 1;
+}
+
+body.loading {
+  opacity: 0;
+}
+
+/* layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* typography */
+h1 {
+  font-size: 4rem;
+  letter-spacing: -2px;
+  font-weight: normal;
+  margin: 0.5em 0;
+  font-family: "BIZ UDPMincho", serif;
+}
+
+p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 2em 0;
+}
+
+.caution-tape {
+  width: 100vw;
+  height: 20px;
+  background: repeating-linear-gradient(-45deg, rgb(255, 215, 0) 0px, rgb(255, 215, 0) 20px, rgb(0, 0, 0) 20px, rgb(0, 0, 0) 40px);
+  transform: rotate(-2deg);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  visibility: hidden;
+}
+
+/* pvm container and screen */
+.pvm-container {
+  position: relative;
+  display: inline-block;
+  margin: 30px auto;
+  animation: floatUpDown 4s ease-in-out infinite;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+.pvm {
+  width: var(--pvm-graphic-width);
+  height: var(--pvm-graphic-height);
+  position: relative;
+  z-index: 4;
+  pointer-events: auto;
+  transition: filter 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.pvm svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: filter 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+/* clickable screen area */
+.chat {
+  position: absolute;
+  cursor: pointer;
+  z-index: 4;
+  pointer-events: auto;
+  clip-path: url(#screenAreaClip);
+  background-color: rgba(0, 255, 0, 0.5) !important;
+}
+
+/* text glow reflection */
+.pvm-glow-reflection {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  z-index: 11;
+  opacity: 1;
+  filter: blur(4px);
+  transition: all 0.3s ease;
+  mix-blend-mode: screen;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pvm-glow-reflection .hidden-text {
+  display: none;
+  user-select: none;
+}
+
+/* scanlines */
+.scanlines {
+  background: repeating-linear-gradient(to bottom,
+    transparent 0px,
+    transparent 1px,
+    rgba(0, 0, 0, 0.7) 1px,
+    rgba(0, 0, 0, 0.7) 2px);
+  mix-blend-mode: soft-light;
+  opacity: 1;
+  border-radius: 0;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+
+/* phosphor */
+.phosphor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.2;
+  mix-blend-mode: soft-light;
+  image-rendering: pixelated;
+  transition: opacity 0.3s ease;
+}
+
+/* vignette effect for pixi canvas */
+.pvm-pixi-canvas::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.1) 80%,
+      rgba(0, 0, 0, 0.3) 90%,
+      rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.pvm-pixi-canvas.vignette-fade::after {
+  opacity: 1;
+}
+
+.pvm-static {
+  width: var(--video-width);
+  height: var(--video-height);
+  will-change: opacity;
+  animation: pvmTurnOn 4s ease-out forwards;
+  visibility: hidden;
+  object-fit: cover;
+}
+
+/* static animation */
+@keyframes pvmTurnOn {
+  0% { opacity: 1; mix-blend-mode: normal; }
+  20% { opacity: 1; mix-blend-mode: normal; }
+  25% { opacity: 0.2; mix-blend-mode: saturation; }
+  26% { opacity: 1; mix-blend-mode: normal; }
+  55% { opacity: 0.9; mix-blend-mode: saturation; }
+  56% { opacity: 0.9; mix-blend-mode: screen; }
+  60% { opacity: .75; mix-blend-mode: screen; }
+  99% { opacity: 1; mix-blend-mode: screen; }
+  100% { opacity: 0; mix-blend-mode: screen; }
+}
+
+/* message animation */
+.message span {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1rem;
+  animation: wave 15s ease-in-out infinite;
+  text-shadow: none;
+}
+
+/* footer styles */
+.site-footer {
+  text-align: center;
+  padding: 1rem;
+  background: none;
+  color: inherit;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  transition: opacity 0.2s, background 0.2s, color 0.2s;
+  border-radius: 6px;
+  padding: 0.25em 0.5em;
+}
+
+.footer-links a:hover, .footer-links a:focus {
+  color: rgb(102, 102, 102);
+  background: none;
+}
+
+/* animations */
+@keyframes floatUpDown {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes wave {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  50% { transform: translateY(10px); }
+  75% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glimmer {
+  0% { text-shadow: none; }
+  10% {
+    text-shadow:
+      0 0 5px rgb(255, 255, 255),
+      0 0 10px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 20px rgb(255, 255, 255);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 25px rgb(255, 255, 255),
+      0 0 35px rgb(255, 255, 255);
+  }
+  90% {
+    text-shadow:
+      0 0 5px rgb(255, 255, 255),
+      0 0 10px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 20px rgb(255, 255, 255);
+  }
+  100% {
+    text-shadow:
+      0 0 8px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 25px rgb(255, 255, 255),
+      0 0 35px rgb(255, 255, 255);
+  }
+}
+
+@keyframes directGlow {
+  0% {
+    opacity: 0.3;
+    filter: blur(12px);
+    transform: translateX(-52%) scaleX(1);
+    box-shadow: none;
+  }
+  25% {
+    opacity: 0.7;
+    filter: blur(9px);
+    transform: translateX(-52%) scaleX(0.75);
+    box-shadow: none;
+  }
+  50% {
+    opacity: 0.3;
+    filter: blur(12px);
+    transform: translateX(-52%) scaleX(1);
+    box-shadow: none;
+  }
+  75% {
+    opacity: 0.8;
+    filter: blur(7px);
+    transform: translateX(-52%) scaleX(0.7);
+  }
+  100% {
+    opacity: 0.3;
+    filter: blur(12px);
+    transform: translateX(-52%) scaleX(1);
+    box-shadow: none;
+  }
+}
+
+/* Video glow canvas - sunlight effect */
+.video-glow-canvas {
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  border-radius: 0;
+  opacity: 0.8;
+  transform-origin: center center;
+  pointer-events: none;
+  will-change: filter, opacity;
+  box-shadow: 0 0 25px rgba(255, 240, 180, 0.4);
+  transform: translateX(-50%) rotate(1.5deg);
+  position: absolute;
+  top: 17%;
+  left: 50%;
+  z-index: 11;
+  mix-blend-mode: screen;
+  display: block; /* Make sure it's visible by default */
+}
+
+/* Light mode specific styles for sunlight effect */
+@media (prefers-color-scheme: light) {
+  .video-glow-canvas {
+    opacity: 0.85;
+    mix-blend-mode: screen; /* Better for bright reflections */
+    filter: saturate(1.2) contrast(1.8) brightness(1.4);
+    display: block; /* Force display in light mode */
+  }
+}
+
+/* Dark mode specific styles for sunlight effect */
+@media (prefers-color-scheme: dark) {
+  .video-glow-canvas {
+    display: none; /* Hide in dark mode */
+  }
+}
+
+/* Hide sunlight effect when disabled in any mode */
+.sunlight-disabled .video-glow-canvas {
+  opacity: 0;
+  display: none;
+}
+
+/* SVG styling */
+#pvm-svg {
+  width: 400px;
+  height: auto;
+  transition: filter 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: rgb(29, 31, 32);
+  }
+
+  h1,
+  p {
+    color: rgb(255, 255, 255);
+  }
+
+  iframe {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  
+
+  /* text glow in dark mode */
+  .message span {
+    animation:
+      wave 15s ease-in-out infinite,
+      glimmer 4s ease-in-out infinite;
+    animation-delay: calc(0.08s * var(--char-index, 0) + 0.2s), calc(0.08s * var(--char-index, 0) + 0.2s);
+  }
+
+  /* glow reflection on PVM in dark mode */
+  .pvm-glow-reflection {
+    background: radial-gradient(ellipse at center,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%);
+    box-shadow: none;
+    opacity: 1;
+    animation: directGlow 8s ease-in-out infinite;
+    display: block;
+  }
+
+  /* Dark mode specific styles for footer links */
+  .footer-links a {
+    color: rgb(255, 255, 255);
+  }
+}
+
+/* Styles for light mode */
+@media (prefers-color-scheme: light) {
+  .video-glow-canvas {
+    opacity: 0.85;
+    mix-blend-mode: screen; /* Better for bright reflections */
+    filter: saturate(1.2) contrast(1.8) brightness(1.4);
+  }
+
+  /* Hide the old static glow in light mode */
+  .pvm-glow-reflection {
+    display: none;
+  }
+}
+
+/* svg specific styles */
+#pvm-svg {
+  width: 400px;
+  height: auto;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+/* Additional class for clickable elements */
+.clickable {
+  cursor: pointer;
+}
+
+/* SVG Power button styles */
+#pvm-svg #power {
+  fill: none !important;
+  stroke: none !important;
+  cursor: pointer !important;
+  filter: none !important;
+  pointer-events: all !important;
+}
+
+#pvm-svg #power:hover {
+  filter: drop-shadow(0 0 6px white) drop-shadow(0 0 12px white);
+  cursor: pointer !important;
+}
+
+.pvm-pixi-canvas {
+  transition: opacity 0.3s ease;
+}
+
+.vignette-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.1) 80%,
+    rgba(0, 0, 0, 0.3) 90%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+
+/* --- page load fade-in --- */
+body {
+  opacity: 1;
+  transition: opacity 1s, background-color 0.3s, color 0.3s;
+}
+body.loading {
+  opacity: 0;
+}
+
+.chatbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  background: none;
+}
+.chatbox.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.chatbox-back {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1100;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 6px;
+  padding: 0.25em 0.5em;
+}
+.chatbox-back:hover, .chatbox-back:focus {
+  color: rgb(102, 102, 102);
+  background: none;
+}
+@media (prefers-color-scheme: dark) {
+  .chatbox-back {
+    color: #fff;
+  }
+  .footer-links a {
+    color: #fff;
+  }
+  .footer-links a:hover, .footer-links a:focus {
+    color: rgb(102, 102, 102);
+    background: none;
+  }
+}
+@media (prefers-color-scheme: light) {
+  .chatbox-back {
+    color: #000;
+  }
+  .footer-links a {
+    color: #000;
+  }
+  .footer-links a:hover, .footer-links a:focus {
+    color: rgb(102, 102, 102);
+    background: none;
+  }
+}
+.chatbox-content {
+  width: 90vw;
+  max-width: 500px;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.mobile-tap-graphic {
+  display: none !important;
+  opacity: 0;
+}
+@media (max-width: 600px) {
+  .mobile-tap-graphic {
+    display: block !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 20;
+    opacity: 0;
+    animation: tap-indicator-sequence 3.6s ease-in 20s forwards;
+  }
+  .pvm-container,
+  .pvm {
+    width: 60vw;
+    max-width: 60vw;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  #pvm-svg {
+    width: 50vw;
+    max-width: 50vw;
+    min-width: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .mobile-tap-graphic img {
+    width: 45px;
+    height: auto;
+    opacity: 1;
+    display: block;
+  }
+}
+@keyframes tap-indicator-sequence {
+  0% { opacity: 0; }            /* 0s */
+  8.33% { opacity: 1; }         /* 0.3s of 3.6s = 8.33% */
+  91.67% { opacity: 1; }        /* 3.3s of 3.6s = 91.67% */
+  100% { opacity: 0; }          /* 3.6s */
+}
