@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="not found" />
     <title>not found</title>
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
   </head>
   <body>
-    <div class="gallery-layout">
+    <div class="nf-layout">
       <header class="gallery-header">
       </header>
       <main class="gallery-container">
@@ -26,20 +26,12 @@
       </main>
     </div>
     <script>
-      window.__galleryData = [
-        { slug: 'sweet-home', title: 'sweet home', year: '2024', thumb: 'assets/images/sweethome.png', full: 'assets/images/sweethome.png', type: 'image' }
-      ];
-    </script>
-    <script>
       (function(){
-        if (!location.pathname.startsWith('/gallery')) {
-          document.getElementById('gallery-grid').style.display = 'none';
-          document.getElementById('gallery-detail').style.display = 'none';
-          document.getElementById('not-found').style.display = '';
-        }
+        document.getElementById('gallery-grid').style.display = 'none';
+        document.getElementById('gallery-detail').style.display = 'none';
+        document.getElementById('not-found').style.display = '';
       })();
     </script>
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
   </body>
 </html>
-
