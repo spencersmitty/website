@@ -1,0 +1,37 @@
+name: Generate videos index
+
+on:
+  push:
+    paths:
+      - 'assets/videos/**'
+      - '.github/workflows/generate-videos.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate assets/videos/index.json (top-level files only)
+        run: |
+          node -e "const fs=require('fs');const path=require('path');const dir='assets/videos';const deny=new Set(['grid.png','monoscope.png','ps1-error.png','ps2-error.mp4']);const files=fs.readdirSync(dir,{withFileTypes:true}).filter(d=>d.isFile()).map(d=>d.name).filter(f=>!deny.has(f)).sort();const out=path.join(dir,'index.json');fs.writeFileSync(out,JSON.stringify(files,null,2)+'\n');console.log('Wrote',out,'with',files.length,'entries');"
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/videos/index.json
+            git commit -m "chore: update videos index.json"
+            git push
+          fi

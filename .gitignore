@@ -1,0 +1,12 @@
+# https://git-scm.com/docs/gitignore
+# https://help.github.com/articles/ignoring-files
+# Example .gitignore files: https://github.com/github/gitignore
+/bower_components/
+/node_modules/
+# Ignore original large video backups
+assets/media/ganon-orig.mp4
+assets/media/static-long-orig.mp4
+
+# Local Netlify folder
+.netlify
+.staging/

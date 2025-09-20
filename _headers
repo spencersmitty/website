@@ -1,0 +1,9 @@
+/*
+  X-Robots-Tag: noimageindex
+
+/assets/images/*
+  X-Robots-Tag: noindex, noimageindex, noarchive
+
+/assets/videos/*
+  X-Robots-Tag: noindex, noimageindex, noarchive
+
