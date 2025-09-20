@@ -2983,6 +2983,8 @@ window.addEventListener('popstate', (event) => {
 
   function navigateTo(slug, replace = false) {
     const run = () => {
+      // Never run gallery navigation on non-gallery pages
+      if (!document.querySelector('.gallery-layout')) return;
       if (useCollections) {
         const col = currentCollection || collectionNames[0] || 'gallery';
         const hash = `#${col}/${slug}`;
@@ -3017,6 +3019,8 @@ window.addEventListener('popstate', (event) => {
 
   function navigateHome(replace = false) {
     const run = () => {
+      // Never run gallery navigation on non-gallery pages
+      if (!document.querySelector('.gallery-layout')) return;
       if (useCollections) {
         const col = currentCollection || collectionNames[0] || 'gallery';
         const hash = `#${col}`;
@@ -3137,33 +3141,36 @@ window.addEventListener('popstate', (event) => {
   document.addEventListener('touchend', () => { if (_touchTimer) { clearTimeout(_touchTimer); _touchTimer = null; } }, { passive: true });
   document.addEventListener('touchmove', () => { if (_touchTimer) { clearTimeout(_touchTimer); _touchTimer = null; } }, { passive: true });
 
-  const initialSlug = slugFromPath();
-  if (useCollections) {
-    const initialCollection = (pendingCollection && collections[pendingCollection])
-      ? pendingCollection
-      : (firstCollectionFromNav() || (collectionNames[0] || null));
-    const initialHash = parseHash();
-    if (initialCollection) {
-      switchCollection(initialCollection, {
-        skipFade: true,
-        suppressHash: true,
-        force: true,
-        slug: initialHash.slug || null,
-        replaceHash: true
-      });
-    }
-  } else {
-    if (initialSlug) {
-      renderDetail(initialSlug);
-      if (!isFileProtocol) {
-        const url = buildGalleryUrl(initialSlug);
-        history.replaceState({ slug: initialSlug }, '', url);
+  // Only perform gallery initial navigation when the gallery layout exists
+  if (document.querySelector('.gallery-layout')) {
+    const initialSlug = slugFromPath();
+    if (useCollections) {
+      const initialCollection = (pendingCollection && collections[pendingCollection])
+        ? pendingCollection
+        : (firstCollectionFromNav() || (collectionNames[0] || null));
+      const initialHash = parseHash();
+      if (initialCollection) {
+        switchCollection(initialCollection, {
+          skipFade: true,
+          suppressHash: true,
+          force: true,
+          slug: initialHash.slug || null,
+          replaceHash: true
+        });
       }
     } else {
-      renderGrid();
-      if (!isFileProtocol) {
-        const url = buildGalleryUrl(null);
-        history.replaceState({}, '', url);
+      if (initialSlug) {
+        renderDetail(initialSlug);
+        if (!isFileProtocol) {
+          const url = buildGalleryUrl(initialSlug);
+          history.replaceState({ slug: initialSlug }, '', url);
+        }
+      } else {
+        renderGrid();
+        if (!isFileProtocol) {
+          const url = buildGalleryUrl(null);
+          history.replaceState({}, '', url);
+        }
       }
     }
   }
