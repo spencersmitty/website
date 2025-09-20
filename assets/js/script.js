@@ -274,42 +274,7 @@ window.addEventListener('DOMContentLoaded', () => {
   createGreyOverlay();
   loadPvmSvg();
   initPowerManagement();
-  (function setupFirstInteractionUnmute(){
-    let done = false;
-    function tryResumeAudio() {
-      let succeeded = false;
-      try {
-        if (pvmGridSprite && pvmGridSprite.mediaType === 'media' && pvmGridSprite.mediaEl) {
-          const media = pvmGridSprite.mediaEl;
-          media.muted = false;
-          const playback = media.play();
-          if (playback && typeof playback.catch === 'function') playback.catch(() => {});
-          succeeded = true;
-        }
-      } catch (e) {}
-      try {
-        if (window.audioLoop && window.audioLoop.resume) {
-          window.audioLoop.resume();
-          succeeded = true;
-        }
-      } catch (e) {}
-      return succeeded;
-    }
-    function cleanup() {
-      window.removeEventListener('pointerdown', handler, true);
-      window.removeEventListener('keydown', handler, true);
-      window.removeEventListener('touchstart', handler, true);
-    }
-    function handler() {
-      if (done) return;
-      if (!tryResumeAudio()) return;
-      done = true;
-      cleanup();
-    }
-    window.addEventListener('pointerdown', handler, true);
-    window.addEventListener('keydown', handler, true);
-    window.addEventListener('touchstart', handler, true);
-  })();
+  // Volume is controlled explicitly by the PVM volume button.
   // animate both message and reflection
   const messageElement = document.querySelector('.message');
   const glowReflection = document.querySelector('.pvm-glow-reflection');
