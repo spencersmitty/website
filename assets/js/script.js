@@ -251,6 +251,11 @@ let _phosphorFadeFrameId = null;
 
 // initialize when dom is loaded
 window.addEventListener('DOMContentLoaded', () => {
+  try {
+    // Ensure any pre-existing phosphor node uses an absolute background URL
+    const pre = document.querySelector('.phosphor');
+    if (pre) pre.style.backgroundImage = "url('/assets/images/phosphor.png')";
+  } catch (e) {}
   // if we are on the gallery page, initialize the gallery and skip homepage init
   if (document.querySelector('.gallery-layout')) {
     if (typeof initGalleryPage === 'function') initGalleryPage();
