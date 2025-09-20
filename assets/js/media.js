@@ -76,7 +76,7 @@ function _writePinnedChannels(key, list) {
 
 async function initRegularMedia() {
   try {
-    const res = await fetch('assets/videos/index.json', { cache: 'no-cache' });
+    const res = await fetch('/assets/videos/index.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error('failed to load index.json');
     const list = await res.json();
     if (Array.isArray(list)) regularmedia = list;
@@ -346,7 +346,7 @@ if (typeof window.getRandomMedia !== 'function') {
 window.isStaticEffectActive = isStaticEffectActive;
 window.getStaticIntroSrc = function getStaticIntroSrc() {
   const file = (staticEffect && staticEffect.introFile) ? staticEffect.introFile : 'static-short.mp4';
-  return 'assets/videos/' + file;
+  return '/assets/videos/' + file;
 };
 
 // expose simple channel offset controls for external handlers (e.g., PVM up/down buttons)
@@ -461,7 +461,7 @@ window.applyMaintenanceUI = applyMaintenanceUI;
     try { if (window.audioOverrideMap && window.audioOverrideMap[name]) return window.audioOverrideMap[name]; } catch (e) {}
     if (!name) return null;
     const base = String(name).replace(/\.[^.]+$/, '');
-    return 'assets/audio/' + base + '.m4a';
+    return '/assets/audio/' + base + '.m4a';
   }
   window.audioLoop = { play, stop, resume: resumeCtx };
   window.getAudioUrlForVideo = getAudioUrlForVideo;

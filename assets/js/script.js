@@ -387,7 +387,7 @@ function requestGreyOverlayRefresh() {
 }
 
 function loadPvmSvg() {
-  fetch('assets/images/pvm.svg')
+  fetch('/assets/images/pvm.svg')
     .then(response => response.text())
     .then(svgText => {
       if (pvmSvgContainer) {
@@ -1874,7 +1874,7 @@ function reloadMediaSprite(retryCount = 0) {
     // Build a looping sprite from static-long as a visible backup
     try {
       const fallbackVideo = document.createElement('video');
-      fallbackVideo.src = 'assets/videos/static/static-long.mp4';
+      fallbackVideo.src = '/assets/videos/static/static-long.mp4';
       fallbackVideo.autoplay = true;
       fallbackVideo.loop = true;
       fallbackVideo.muted = true;
@@ -3179,7 +3179,7 @@ function showStaticOverlay(force = false, srcOverride = null) {
   
   // create video element for the static
   const staticVideo = document.createElement('video');
-  const staticSrc = srcOverride || (window.getStaticIntroSrc && window.getStaticIntroSrc()) || 'assets/videos/static-short.mp4';
+  const staticSrc = srcOverride || (window.getStaticIntroSrc && window.getStaticIntroSrc()) || '/assets/videos/static-short.mp4';
   const isShort = /static-short/i.test(staticSrc);
   staticVideo.src = staticSrc;
   staticVideo.muted = false;
