@@ -2323,12 +2323,23 @@ window.addEventListener('popstate', (event) => {
   const configuredBase = (typeof window.__galleryRouteBase === 'string') ? window.__galleryRouteBase : '/gallery';
   const routeBase = configuredBase.replace(/\/+$/, '');
   const normalizedRouteBase = routeBase.startsWith('/') ? routeBase : `/${routeBase}`;
+  const usingHashRouting = /\.html$/i.test(normalizedRouteBase);
   const landingHref = (typeof window.__galleryLanding === 'string')
     ? window.__galleryLanding
     : (useCollections ? 'index.html' : 'gallery.html');
   const landingUrl = (typeof window.__galleryLandingUrl === 'string')
     ? window.__galleryLandingUrl
-    : (useCollections ? '/' : '/gallery/');
+    : (useCollections ? '/' : (usingHashRouting ? 'gallery.html' : '/gallery/'));
+
+  function buildGalleryUrl(slug = null) {
+    const base = normalizedRouteBase || '/gallery';
+    if (/\.html$/i.test(base)) {
+      return slug ? `${base}#${slug}` : base;
+    }
+    const trimmed = base.replace(/\/+$/, '');
+    if (slug) return `${trimmed}/${slug}/`;
+    return `${trimmed}/`;
+  }
 
   // Load gallery items and sort with series-aware logic:
   // - Normalize titles (strip articles like "the", "a", and prefix "dr.") so related items group
@@ -2427,7 +2438,7 @@ window.addEventListener('popstate', (event) => {
       if (collection) pendingCollection = collection;
       return slug;
     }
-    if (isFileProtocol) {
+    if (isFileProtocol || usingHashRouting) {
       const hash = (window.location.hash || '').replace(/^#/, '');
       return hash || null;
     }
@@ -3045,7 +3056,7 @@ window.addEventListener('popstate', (event) => {
       });
     };
     window.addEventListener('hashchange', handleHashChange);
-  } else if (isFileProtocol) {
+  } else if (isFileProtocol || usingHashRouting) {
     window.addEventListener('hashchange', () => {
       const slug = slugFromPath();
       const render = () => { if (slug) renderDetail(slug); else renderGrid(); };
@@ -3140,14 +3151,14 @@ window.addEventListener('popstate', (event) => {
     if (initialSlug) {
       renderDetail(initialSlug);
       if (!isFileProtocol) {
-        const baseUrl = normalizedRouteBase || '/gallery';
-        history.replaceState({ slug: initialSlug }, '', `${baseUrl}/${initialSlug}/`);
+        const url = buildGalleryUrl(initialSlug);
+        history.replaceState({ slug: initialSlug }, '', url);
       }
     } else {
       renderGrid();
       if (!isFileProtocol) {
-        const baseUrl = normalizedRouteBase || '/gallery';
-        history.replaceState({}, '', `${baseUrl}/`);
+        const url = buildGalleryUrl(null);
+        history.replaceState({}, '', url);
       }
     }
   }
