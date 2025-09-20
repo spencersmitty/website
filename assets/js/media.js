@@ -377,7 +377,7 @@ function applyMaintenanceUI() {
   } else {
     // keep homepage message text aligned with index.html
     link.textContent = 'gallery';
-    link.setAttribute('href', 'gallery.html');
+    link.setAttribute('href', '/gallery');
     link.style.pointerEvents = '';
     document.body.classList.remove('maintenance-on');
   }

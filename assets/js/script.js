@@ -1765,7 +1765,7 @@ function createMediaSprite() {
   // use gettodaysmedia from media.js
   const filename = window.gettodaysmedia ? window.gettodaysmedia() : null;
   if (!filename) return new PIXI.Container(); // fallback: empty container
-  const mediaPath = 'assets/videos/' + filename;
+  const mediaPath = '/assets/videos/' + filename;
   const isMedia = /\.(mp4|mov|webm)$/i.test(mediaPath);
   let sprite, mediaEl = null;
   if (isMedia) {
@@ -2006,7 +2006,7 @@ function changeChannel(delta) {
     window.mediaChannelOffset = (window.mediaChannelOffset || 0) + (parseInt(delta, 10) || 0);
   }
   // kick a static overlay and replace media
-  try { showStaticOverlay(true, 'assets/videos/static/static-short.mp4'); } catch (e) {}
+  try { showStaticOverlay(true, '/assets/videos/static/static-short.mp4'); } catch (e) {}
   reloadMediaSprite();
 }
 
