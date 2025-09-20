@@ -338,6 +338,11 @@ function isStaticEffectActive() {
 
 // export for use in your main script
 window.gettodaysmedia = gettodaysmedia;
+if (typeof window.getRandomMedia !== 'function') {
+  window.getRandomMedia = function getRandomMediaFallback() {
+    try { return gettodaysmedia(); } catch (e) { return null; }
+  };
+}
 window.isStaticEffectActive = isStaticEffectActive;
 window.getStaticIntroSrc = function getStaticIntroSrc() {
   const file = (staticEffect && staticEffect.introFile) ? staticEffect.introFile : 'static-short.mp4';

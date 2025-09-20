@@ -1,5 +1,13 @@
 /* main script */
 
+// Provide minimal fallbacks when helper scripts are absent
+if (typeof window.loadButtonStates !== 'function') {
+  window.loadButtonStates = function noopLoadButtonStates() {};
+}
+if (typeof window.saveButtonStates !== 'function') {
+  window.saveButtonStates = function noopSaveButtonStates() {};
+}
+
 // dom references
 const body = document.body;
 const pvmSvgContainer = document.getElementById('pvm-svg-container');
