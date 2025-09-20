@@ -20,6 +20,12 @@
     <style>
       body.loading { opacity: 0; }
     </style>
+    <script>
+      // Hard guard: if the homepage is ever served at /gallery by routing mishaps, normalize back to /
+      (function(){
+        try { if (location.pathname.startsWith('/gallery')) history.replaceState({}, '', '/'); } catch (e) {}
+      })();
+    </script>
     <title>smitty</title>
     
     <!-- stylesheets -->

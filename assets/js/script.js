@@ -182,7 +182,7 @@ function createPhosphorOverlay(svgDoc) {
   overlay.style.top = `${top}px`;
   overlay.style.width = `${width}px`;
   overlay.style.height = `${height}px`;
-  overlay.style.backgroundImage = "url('assets/images/phosphor.png')";
+  overlay.style.backgroundImage = "url('/assets/images/phosphor.png')";
   overlay.style.backgroundRepeat = 'repeat';
   overlay.style.backgroundSize = '10px 10px';
   overlay.style.opacity = phosphorOn ? '0.2' : '0';
