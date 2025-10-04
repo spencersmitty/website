@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noimageindex" />
+    <meta property="og:title" content="smitty">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="smitty">
+    <meta property="og:image:alt" content="screenshot of the smitty homepage">
+    <meta property="og:image" content="https://cdn.imgchest.com/files/4nec8q28r24.png">
+    <meta property="og:image:secure_url" content="https://cdn.imgchest.com/files/4nec8q28r24.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="smitty">
+    <meta name="twitter:image" content="https://cdn.imgchest.com/files/4nec8q28r24.png">
+    <meta name="twitter:image:alt" content="screenshot of the smitty homepage">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap" rel="stylesheet" />
+    <style>
+      body.loading { opacity: 0; }
+    </style>
+    <script>
+      // Hard guard: if the homepage is ever served at /gallery by routing mishaps, normalize back to /
+      (function(){
+        try { if (location.pathname.startsWith('/gallery')) history.replaceState({}, '', '/'); } catch (e) {}
+      })();
+    </script>
+    <title>smitty</title>
+    
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    
+    <!-- favicon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+
+  <body class="loading">
+    <div class="layout">
+      <main class="intro">
+        <h1 class="home-title" data-text="smitty">smitty</h1>
+        
+        <p class="message"><a href="/gallery">enter gallery</a></p>
+        <!-- pvm container -->
+        <div class="pvm-container">
+          <div class="pvm-glow-reflection"></div>
+          <div id="pvm-svg-container" class="pvm"></div>
+          <div class="scanlines"></div>
+          <div class="phosphor"></div>
+        </div>
+      </main>
+
+      <div id="under-construction" style="display:none;">
+        <img src="/assets/videos/maintenance/grid.png" alt="under construction grid" />
+        <div class="caution-tape"></div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="footer-links">
+          <!-- social links -->
+          <a href="mailto:contact@spencersmitty.com" title="email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+            </svg>
+          </a>
+          <a href="https://discordapp.com/users/815375974907904040" title="discord" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+              <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612" />
+            </svg>
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <div id="chatbox" class="chatbox" style="display:none">
+      <div class="chatbox-content">
+        <!-- Chat UI goes here -->
+        <iframe
+          title="Chat"
+          src="https://www3.cbox.ws/box/?boxid=3546133&boxtag=UkIQjc"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          referrerpolicy="no-referrer"
+          style="width:100%;height:400px;border:none;"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- scripts -->
+    <audio id="poweron-audio" src="/assets/audio/poweron-warm.mp3" preload="auto" style="display:none"></audio>
+    <audio id="power-warm-audio" src="/assets/audio/poweron-warm.mp3" preload="auto" style="display:none"></audio>
+    <audio id="power-cold-audio" src="/assets/audio/poweron-cold.mp3" preload="auto" style="display:none"></audio>
+    <audio id="poweroff-audio" src="/assets/audio/poweroff.mp3" preload="auto" style="display:none"></audio>
+    <audio id="degauss-audio" src="/assets/audio/degauss.mp3" preload="auto" style="display:none"></audio>
+    <audio id="relay-audio" src="/assets/audio/relay.mp3" preload="auto" style="display:none"></audio>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-filters@5.3.0/dist/browser/pixi-filters.min.js"></script>
+    <script src="/assets/js/media.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script>
+      (function () {
+        const h1 = document.querySelector('h1[data-text]');
+        if (!h1) return;
+        h1.addEventListener('pointermove', function (e) {
+          const r = h1.getBoundingClientRect();
+          h1.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          h1.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+        h1.addEventListener('pointerleave', function () {
+          h1.style.setProperty('--mx', '-10000px');
+          h1.style.setProperty('--my', '-10000px');
+        });
+      })();
+    </script>
+  </body>
+</html>

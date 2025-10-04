@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noimageindex" />
+    <meta name="description" content="gallery" />
+    <title>gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap" rel="stylesheet" />
+    <style>
+      body.loading { opacity: 0; }
+    </style>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <script>
+      window.__galleryRouteBase = '/gallery.html';
+    </script>
+  </head>
+  <body class="loading">
+    <div class="gallery-layout">
+      <header class="gallery-header">
+        <h1 class="gallery-heading" aria-label="gallery">
+          <span class="letter g">g</span><span class="letter a">a</span><span class="letter l1">l</span><span class="letter l2">l</span><span class="letter e">e</span><span class="letter r">r</span><span class="letter y">y</span>
+        </h1>
+        <nav class="gallery-nav">
+          <button type="button" class="gallery-nav-link is-active" data-collection="misc" disabled>misc</button>
+          <button type="button" class="gallery-nav-link" data-collection="redux">redux</button>
+          <span class="gallery-nav-indicator" aria-hidden="true"></span>
+        </nav>
+      </header>
+      <main class="gallery-container gallery-main" aria-live="polite">
+        <section id="gallery-grid" class="gallery-grid" aria-label="gallery grid"></section>
+        <section id="gallery-detail" style="display:none" aria-label="artwork detail">
+          <div class="artwork-wrapper">
+            <img id="detail-image" class="artwork-media" src="" alt="" />
+            <video id="detail-video" class="artwork-media" style="display:none;" controls playsinline loop></video>
+            <p id="detail-label" class="art-label"></p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      window.__galleryDefaultThumb = '/assets/images/preview.png';
+      window.__galleryCollections = {
+        misc: [
+          {
+            slug: 'glizzy',
+            title: 'glizzy',
+            description: 'rare mother 2 enemy',
+            images: [
+              {
+                src: '/assets/images/gallery/misc/glizzy.mp4',
+                kind: 'video',
+              }
+            ]
+          }
+        ],
+        redux: [
+          {
+            slug: 'biohazard',
+            title: 'biohazard',
+            description: `<audio controls preload=\"none\" src=\"/assets/audio/Umbrella Computer.m4a\"></audio>`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/biohazard.png' }
+            ]
+          },
+          {
+            slug: 'biohazard-2',
+            title: 'biohazard 2',
+            description: ``,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/biohazard2.png' }
+            ]
+          },
+          {
+            slug: 'castle-cat',
+            title: 'castle cat title',
+            description: `'watch that first step, its a dilly!'\n\nr.i.p. wiesi`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/castlecat.png' },
+              { src: '/assets/images/gallery/redux/castlecat-logo.png' },
+              { src: '/assets/images/gallery/redux/castlecat-orig.png' }
+            ]
+          },
+          {
+            slug: 'castle-cat-3',
+            title: 'castle cat 3 title',
+            description: `'don't you wanna go on my ufo'\n\nthank you to my brother for help with the background texture\n\nr.i.p. wiesi`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/castlecat3.png' },
+              { src: '/assets/images/gallery/redux/castlecat3-orig.png' }
+            ]
+          },
+          {
+            slug: 'dr-mario',
+            title: 'dr. mario',
+            description: 'i saw this on the box of a nintendo cup i bought so i remade it',
+            images: [
+              { src: '/assets/images/gallery/redux/drmario.png' },
+              { src: '/assets/images/gallery/redux/drmario-orig.png' }
+            ]
+          },
+          {
+            slug: 'forecast-channel',
+            title: 'wii forecast channel',
+            description: `<audio controls preload=\"none\" src=\"/assets/audio/Global Forecast (Nighttime Layer Only).m4a\"></audio>`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/forecastchannel.png' }
+            ]
+          },
+          {
+            slug: 'heart-of-darkness',
+            title: 'heart of darkness',
+            description: `'aaaamigo!'`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/heartofdarkness.png' },
+              { src: '/assets/images/gallery/redux/heartofdarkness2.png' }
+            ]
+          },
+          {
+            slug: 'mario-artist',
+            title: 'mario artist',
+            description: ``,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/marioartist-paint.png' },
+              { src: '/assets/images/gallery/redux/marioartist-talent.png' },
+              { src: '/assets/images/gallery/redux/marioartist-polygon.png' },
+              { src: '/assets/images/gallery/redux/marioartist-communication.png' },
+              { src: '/assets/images/gallery/redux/marioartist-logos.png' }
+            ]
+          },
+          {
+            slug: 'mario-party-2',
+            title: 'mario party 2',
+            description: `<audio controls preload=\"none\" src=\"/assets/audio/Story Intro.m4a\"></audio>`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/marioparty2.png' }
+            ]
+          },
+          {
+            slug: 'resident-evil',
+            title: 'resident evil',
+            description: ``,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/residentevil.png' },
+              { src: '/assets/images/gallery/redux/residentevil-outline.jpeg' },
+              { src: '/assets/images/gallery/redux/residentevil-upscales' }
+            ]
+          },
+          {
+            slug: 'silent-hill',
+            title: 'silent hill',
+            description: ``,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/silenthill.png' }
+            ]
+          },
+          {
+            slug: 'sweet-home',
+            title: 'スウィートホーム (sweet home)',
+            description: `<audio controls preload=\"none\" src=\"/assets/audio/Mamiya's Quarters.mp3\"></audio>`,
+            
+            images: [
+              { src: '/assets/images/gallery/redux/sweethome.png' },
+              { src: '/assets/images/gallery/redux/sweethome-logo.png' }
+            ]
+          }
+        ]
+      };
+    </script>
+    <script>
+      window.__galleryRouteBase = '/gallery.html';
+      window.__galleryLanding = 'index.html';
+      window.__galleryLandingUrl = '/';
+    </script>
+    <script src="/assets/js/script.js"></script>
+  </body>
+</html>

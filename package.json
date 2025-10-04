@@ -1,0 +1,12 @@
+{
+  "name": "pvm-site",
+  "private": true,
+  "version": "0.0.0",
+  "description": "PVM site with YouTube proxy function",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "ytdl-core": "^4.11.5"
+  }
+}
+

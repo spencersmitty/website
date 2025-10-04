@@ -1,0 +1,8 @@
+/gallery/assets/*   /assets/:splat   200
+/gallery/favicon.svg  /favicon.svg   200
+/gallery/robots.txt   /robots.txt    200
+/gallery/index.html   /gallery.html  200
+/gallery             /gallery.html   200
+/gallery/*           /gallery.html   200
+/*    /index.html    200
+/api/ytdl    /.netlify/functions/ytdl  200

@@ -1,0 +1,1252 @@
+/* css variables for sizing and colors */
+:root {
+  --pvm-graphic-width: 400px;
+  --sunlight-color: rgba(255, 200, 50, 0.7);
+  --sunlight-border: rgba(255, 200, 50, 0.5);
+  --sunlight-shadow: rgba(255, 200, 50, 0.4);
+  --sunlight-hover: rgba(255, 220, 80, 0.9);
+  --sunlight-hover-shadow: rgba(255, 200, 50, 0.7);
+  --media-width: 400px;
+  --media-height: 300px;
+  --color-text-dark: #000;
+  --color-text-light: #fff;
+  --color-text-muted: rgb(102, 102, 102);
+  --max-content-width: 1200px;
+  --artwork-max-width: 900px;
+}
+
+/* SonyCam OSD font */
+@font-face {
+  font-family: 'SonyCam';
+  src: url('/assets/fonts/sonycam.otf') format('opentype');
+  font-display: swap;
+}
+
+/* base styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+  font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+  transition: opacity 1s, background-color 0.3s, color 0.3s;
+  opacity: 1;
+}
+
+/* Hide page scrollbars when explicitly requested (gallery detail view) */
+body.no-scroll {
+  overflow: hidden;
+}
+
+body.loading {
+  opacity: 0;
+}
+
+/* layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: opacity 0.25s, background-color 0.3s, color 0.3s;
+}
+
+.intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+  font-family: "BIZ UDPMincho", serif;
+  font-weight: normal;
+  margin: 0.5em 0;
+  letter-spacing: -2px;
+}
+
+.home-title {
+  font-size: 3rem;
+  position: relative;
+  transition: filter 30s ease;
+  will-change: filter;
+  cursor: default;
+}
+
+.home-title:hover {
+  filter: blur(0.15em) contrast(25) brightness(1.2);
+}
+
+
+p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 2em 0;
+}
+
+/* link styles */
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+}
+a:visited { color: inherit; }
+a:hover, a:focus, a:active { color: inherit; }
+
+/* make homepage "gallery" link hover match footer icon hover */
+.message a {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0.25em 0.5em;
+  transition: color 0.2s, background 0.2s, opacity 0.2s;
+}
+.message a:hover, .message a:focus {
+  color: var(--color-text-muted);
+}
+
+/* When hovering the "gallery" text, hide the TV glow and reflection */
+.message a:hover ~ .pvm-container .pvm-glow-reflection,
+.message a:focus ~ .pvm-container .pvm-glow-reflection,
+.message a:hover ~ .pvm-container .media-glow-canvas,
+.message a:focus ~ .pvm-container .media-glow-canvas {
+  display: none !important;
+}
+
+/* maintenance state dims the link further; JS toggles text and href only */
+.maintenance-on .message a {
+  opacity: 0.5;
+}
+
+/* match gallery description kerning (default/normal) */
+
+
+/* gallery styles */
+.gallery-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+/* gallery directory landing */
+body.directory {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.gallery-directory {
+  width: 90vw;
+  max-width: 720px;
+  margin: 48px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  text-align: left;
+}
+
+.directory-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-family: "BIZ UDPMincho", serif;
+}
+
+.directory-header p {
+  margin: 0;
+  font-weight: normal;
+  color: var(--color-text-muted);
+}
+
+.directory-links {
+  display: grid;
+  gap: 16px;
+}
+
+.gallery-heading {
+  font-family: "BIZ UDPMincho", serif;
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: normal;
+  letter-spacing: -2px;
+  text-align: center;
+}
+
+/* Fine-tune kerning for 'gallery' letters */
+.gallery-heading .letter { display: inline-block; }
+/* Pull 'e' slightly closer to the preceding 'l' */
+.gallery-heading .letter.e { margin-left: -0.05em; }
+/* Push 'y' a touch away from 'r' */
+.gallery-heading .letter.y { margin-left: 0.07em; }
+
+.directory-card {
+  display: block;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.04);
+  color: inherit;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.directory-card:hover,
+.directory-card:focus-visible {
+  transform: translateY(-4px);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.directory-title {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.directory-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+.gallery-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 48px;
+}
+.gallery-nav {
+  display: flex;
+  gap: 16px;
+  margin: 12px 0 0;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.gallery-nav-link {
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 0.95rem;
+  text-transform: lowercase;
+  color: var(--color-text-muted);
+  padding: 0 0 2px;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.gallery-nav-link:hover,
+.gallery-nav-link:focus-visible { opacity: 0.75; }
+
+.gallery-nav-link.is-active {
+  color: var(--color-text-dark);
+  opacity: 0.85;
+  cursor: default;
+}
+
+.gallery-nav-link.is-active:hover,
+.gallery-nav-link.is-active:focus-visible { opacity: 0.85; }
+
+.gallery-nav-indicator{
+  position:absolute;bottom:0;height:2px;width:0;border-radius:999px;background:currentColor;
+  transition:transform .3s ease,width .3s ease,background-color .3s ease;pointer-events:none;
+}
+
+.gallery-nav-link:disabled {
+  cursor: default;
+}
+.gallery-container {
+  width: 90vw;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.gallery-main {
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+body.loading .gallery-main {
+  opacity: 0;
+}
+
+/* Add comfortable breathing room at the bottom of the detail view */
+#gallery-detail {
+  padding-bottom: 64px;
+}
+.gallery-grid {
+  display: grid;
+  /* max 3 columns; shrink to 2/1 on smaller screens */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.gallery-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 25px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.15s ease;
+}
+
+.gallery-card.is-ready {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+  object-position: var(--thumb-x, 50%) var(--thumb-y, 50%);
+  margin: auto;
+  display: block;
+}
+
+.gallery-card:hover,
+.gallery-card:focus-within {
+  transform: scale(1.03);
+}
+
+/* Play overlay for video thumbnails */
+.gallery-card.has-video .play-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* clicks pass through to card */
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.gallery-card.has-video .play-overlay::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 0 12px 20px; /* triangle */
+  border-color: transparent transparent transparent rgba(255,255,255,0.92);
+  margin-left: 3px; /* center triangle inside circle */
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+}
+.gallery-card.has-video:hover .play-overlay,
+.gallery-card.has-video:focus-within .play-overlay {
+  transform: translate(-50%, -50%) scale(1.04);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 600px) {
+  .gallery-card.has-video .play-overlay { width: 48px; height: 48px; }
+  .gallery-card.has-video .play-overlay::before { border-width: 10px 0 10px 16px; }
+}
+
+.artwork-wrapper {
+  max-width: var(--artwork-max-width);
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden; /* contain hover zoom */
+  padding-bottom: 0; /* ensure no bottom padding */
+}
+.artwork-shadow {
+  display: inline-block;
+  padding: 20px; /* breathing room for shadow */
+  background: transparent;
+  filter: none;
+  transition: filter 0.4s ease;
+}
+.artwork-shadow.ready {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.));
+}
+.artwork-media {
+  display: block;
+  max-width: 100%;
+  /* Fit within viewport, leaving room for header, padding, and previews */
+  max-height: calc(100vh - 260px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  transition: transform 0.15s ease-out;
+}
+
+/* discourage saving/downloading on marked media (best-effort only) */
+img.no-save, .no-save img, video.no-save, .no-save video {
+  -webkit-touch-callout: none; /* iOS long-press menu */
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* responsive fallbacks for smaller screens */
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* Art label and year styles */
+.art-label {
+  font-weight: normal;
+  font-size: 0.95rem;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+.art-label strong {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 12px;
+}
+.art-label .art-desc {
+  display: block;
+  white-space: pre-wrap; /* preserve newlines and multiple spaces */
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+.art-year {
+  display: inline-block;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+/* under construction tape */
+.caution-tape {
+  width: 100vw;
+  height: 20px;
+  background: repeating-linear-gradient(-45deg, rgb(255, 215, 0) 0px, rgb(255, 215, 0) 20px, rgb(0, 0, 0) 20px, rgb(0, 0, 0) 40px);
+  transform: rotate(-2deg);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  visibility: hidden;
+}
+
+.caution-tape.active {
+  visibility: visible;
+}
+
+/* pvm container and screen */
+.pvm-container {
+  position: relative;
+  display: inline-block;
+  margin: 30px auto;
+  overflow: visible;
+  pointer-events: auto;
+  transform: translateZ(0);
+  /* Ensure blend modes (phosphor, scanlines) blend within this box only */
+  isolation: isolate;
+}
+
+/* Tooltip under screen for knob/button feedback */
+.pvm-tooltip {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--sunlight-color);
+  color: #1a1200;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--sunlight-border);
+  box-shadow: 0 2px 10px var(--sunlight-shadow);
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  white-space: nowrap;
+}
+
+/* Subline styling for effect status messages (subtitle under main line) */
+#effect-status-message .effect-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85em;
+  color: #888;
+  letter-spacing: 0.4px;
+}
+
+.pvm {
+  width: var(--pvm-graphic-width);
+  height: var(--pvm-graphic-height);
+  position: relative;
+  z-index: 4;
+  pointer-events: auto;
+  transition: filter 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.pvm svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: filter 0.3s, opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+/* clickable screen area */
+.chat {
+  position: absolute;
+  cursor: pointer;
+  z-index: 4;
+  pointer-events: auto;
+  clip-path: url(#screenAreaClip);
+}
+
+/* text glow reflection */
+.pvm-glow-reflection {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  z-index: 11;
+  opacity: 1;
+  filter: blur(4px);
+  transition: all 0.3s ease, width 0.3s cubic-bezier(.4,0,.2,1);
+  mix-blend-mode: screen;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 16px rgba(255,255,255,0.6),
+    0 0 32px rgba(255,255,255,0.4);
+  white-space: pre-line;
+  font: inherit;
+  text-align: center;
+  background: none;
+  display: block;
+  margin: 0 auto 1em auto;
+  will-change: opacity, transform, filter;
+  animation-delay: 0.2s;
+}
+
+.pvm-glow-reflection .hidden-text {
+  display: none;
+  user-select: none;
+}
+
+/* scanlines */
+.scanlines {
+  background: repeating-linear-gradient(to bottom,
+    transparent 0px,
+    transparent 0.5px,
+    rgba(0, 0, 0, 0.25) 0.5px,
+    rgba(0, 0, 0, 0.25) 1px);
+  mix-blend-mode: normal;
+  opacity: 1;
+  border-radius: 0;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
+  z-index: 5; /* above video (1), phosphor (2) and ct overlay (3), below bezel */
+  transition: opacity 0.3s ease;
+}
+
+.phosphor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.2;
+  /* Blend phosphor pattern with underlying image luminance for a more "made of phosphors" feel */
+  mix-blend-mode: soft-light;
+  image-rendering: pixelated;
+  transition: opacity 0.3s ease;
+}
+
+/* hide phosphor when tv is off */
+body.power-off .phosphor {
+  opacity: 0 !important;
+}
+
+/* hide phosphor when toggled off */
+.phosphor-disabled .phosphor {
+  opacity: 0 !important;
+}
+
+/* vignette effect for pixi canvas */
+.pvm-pixi-canvas::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.1) 80%,
+      rgba(0, 0, 0, 0.3) 90%,
+      rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.pvm-pixi-canvas.vignette-fade::after {
+  opacity: 1;
+}
+
+/* message animation */
+.message span {
+  display: inline-block;
+  font-weight: italic;
+  font-size: 1rem;
+  animation: wave 15s ease-in-out infinite;
+  text-shadow: none;
+}
+
+/* footer styles */
+.site-footer {
+  text-align: center;
+  padding: 1rem;
+  background: none;
+  color: inherit;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: var(--color-text-dark);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s, opacity 0.2s;
+  border-radius: 6px;
+  padding: 0.25em 0.5em;
+}
+
+.footer-links a:hover, .footer-links a:focus {
+  color: var(--color-text-muted);
+}
+
+/* animations */
+@keyframes floatUpDown {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes wave {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  50% { transform: translateY(10px); }
+  75% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glimmer {
+  0% { text-shadow: none; }
+  10% {
+    text-shadow:
+      0 0 5px rgb(255, 255, 255),
+      0 0 10px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 20px rgb(255, 255, 255);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 25px rgb(255, 255, 255),
+      0 0 35px rgb(255, 255, 255);
+  }
+  90% {
+    text-shadow:
+      0 0 5px rgb(255, 255, 255),
+      0 0 10px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 20px rgb(255, 255, 255);
+  }
+  100% {
+    text-shadow:
+      0 0 8px rgb(255, 255, 255),
+      0 0 15px rgb(255, 255, 255),
+      0 0 25px rgb(255, 255, 255),
+      0 0 35px rgb(255, 255, 255);
+  }
+}
+
+@keyframes directGlow {
+  0% {
+    opacity: 0.5;  /* start dimmer since text goes up */
+    filter: blur(9px);
+    transform: translateX(-50%) scaleX(1);
+  }
+  25% {
+    opacity: 0.5;   /* still fairly dim at top */
+    filter: blur(9px);
+    transform: translateX(-50%) scaleX(0.9);
+  }
+  50% {
+    opacity: 0.9;  /* brightest at bottom */
+    filter: blur(7px);
+    transform: translateX(-50%) scaleX(0.72);
+  }
+  75% {
+    opacity: 0.5;
+    filter: blur(9px);
+    transform: translateX(-50%) scaleX(0.9);
+  }
+  100% {
+    opacity: 0.5;
+    filter: blur(9px);  
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+/* media glow canvas - sunlight effect */
+.media-glow-canvas {
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  border-radius: 0;
+  opacity: 0.8;
+  transform-origin: center center;
+  pointer-events: none;
+  will-change: filter, opacity, transform;
+  box-shadow: 0 0 25px rgba(255, 240, 180, 0.4);
+  transform: translateX(-50%) rotate(1.5deg);
+  position: absolute;
+  top: 17%;
+  left: 50%;
+  z-index: 11;
+  mix-blend-mode: screen;
+  display: block;
+}
+
+/* SVG styling */
+#pvm-svg {
+  width: 400px;
+  height: auto;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+/* Dark mode and Light mode merged blocks */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: rgb(29, 31, 32);
+  }
+
+  h1,
+  p {
+    color: rgb(255, 255, 255);
+  }
+
+  /* Do not invert embedded content inside the PVM */
+  iframe:not(.pvm-youtube) {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  
+  /* text glow in dark mode */
+  .message span {
+    animation:
+      wave 15s ease-in-out infinite,
+      glimmer 4s ease-in-out infinite;
+    animation-delay: calc(0.08s * var(--char-index, 0) + 0.2s), calc(0.08s * var(--char-index, 0) + 0.2s);
+  }
+
+  /* In dark mode: show PVM glow overlays (default behavior) */
+  .pvm-glow-reflection {
+    background: radial-gradient(ellipse at center,
+      rgba(255, 255, 255, 0.75) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%);
+    box-shadow: none;
+    opacity: 1;
+    animation: directGlow 15s ease-in-out infinite;
+    display: block;
+  }
+
+  /* Dark mode specific styles for footer links */
+  .footer-links a {
+    color: var(--color-text-light);
+  }
+  .footer-links a:hover, .footer-links a:focus {
+    color: var(--color-text-muted);
+  }
+
+  /* apply same hover feel to homepage gallery link in dark mode */
+  .message a:hover, .message a:focus {
+    color: var(--color-text-muted);
+  }
+
+  .chatbox-back {
+    color: var(--color-text-light);
+  }
+
+  .directory-card {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .directory-card:hover,
+  .directory-card:focus-visible {
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .gallery-nav-link {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .gallery-nav-link.is-active {
+    color: var(--color-text-light);
+    opacity: 1;
+  }
+
+  /* Ensure nav underline inherits white via currentColor */
+  .gallery-nav {
+    color: var(--color-text-light);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .media-glow-canvas {
+    filter: saturate(1.2) contrast(1.8) brightness(1.4);
+    opacity: 0.85;
+    mix-blend-mode: screen;
+  }
+
+  .pvm-glow-reflection {
+    display: none;
+  }
+
+  .pvm-pixi-canvas {
+    background-color: rgb(23, 23, 23);
+  }
+
+  .chatbox-back {
+    color: var(--color-text-dark);
+  }
+
+  /* Ensure nav underline inherits black via currentColor */
+  .gallery-nav {
+    color: var(--color-text-dark);
+  }
+}
+
+/* Additional class for clickable elements */
+.clickable {
+  cursor: pointer;
+}
+
+/* SVG Power button styles */
+#pvm-svg #power {
+  fill: none !important;
+  stroke: none !important;
+  cursor: pointer !important;
+  filter: none !important;
+  pointer-events: all !important;
+}
+
+#pvm-svg #power:hover {
+  filter: drop-shadow(0 0 6px white) drop-shadow(0 0 12px white);
+  cursor: pointer !important;
+}
+
+.pvm-pixi-canvas {
+  transition: opacity 0.3s ease;
+}
+
+.vignette-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.1) 80%,
+    rgba(0, 0, 0, 0.3) 90%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+
+/* On‑screen display (PVM menu) */
+.pvm-osd-menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 6% 7%;
+  box-sizing: border-box; /* keep padding inside screen bounds */
+  color: #eaeaea;
+  font-family: 'SonyCam', monospace;
+  /* Original menu scale */
+  font-size: clamp(9px, 1.6vh, 18px);
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  pointer-events: none; /* display only */
+  z-index: 2; /* above video (1), below phosphor (3), vignette (4), scanlines (5), sunlight (11) */
+  opacity: 1;
+  transition: opacity 0.10s ease; /* symmetric fade in/out */
+  /* Distribute main block and footer with equal top/bottom padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Input status label layer (matches OSD styling) */
+.pvm-osd-label-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 6% 7%;
+  pointer-events: none;
+  z-index: 1; /* same as OSD */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* bottom */
+  align-items: flex-start;   /* left */
+  opacity: 0;
+  transition: opacity 0.10s ease;
+}
+.pvm-osd-label {
+  color: #eaeaea;
+  font-family: 'SonyCam', monospace;
+  font-size: 1em; /* uses the layer's computed font-size from JS */
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow:
+    1px 0 0 #000,
+   -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000,
+    1px 1px 0 #000,
+    1px -1px 0 #000,
+   -1px 1px 0 #000,
+   -1px -1px 0 #000;
+}
+/* Crisp black outline for OSD text (instead of single drop shadow) */
+.pvm-osd-menu .osd-title,
+.pvm-osd-menu .osd-item,
+.pvm-osd-menu .osd-foot-text,
+.pvm-osd-menu .osd-geom,
+.pvm-osd-menu .geom-left,
+.pvm-osd-menu .geom-right,
+.pvm-osd-menu .geom-input,
+.pvm-osd-menu .geom-param,
+.pvm-osd-menu .geom-val,
+.pvm-osd-menu .geom-sup {
+  /* 1px outline using 8-directional shadows; no blur */
+  text-shadow:
+    1px 0 0 #000,
+   -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000,
+    1px 1px 0 #000,
+    1px -1px 0 #000,
+   -1px 1px 0 #000,
+   -1px -1px 0 #000;
+}
+
+/* (removed) CRT fade underlay */
+.pvm-osd-menu .osd-title {
+  margin-bottom: 1.6em; /* a bit more space before items */
+  margin-top: 0;
+}
+.pvm-osd-menu .osd-list { margin-left: -0.45em; }
+.pvm-osd-menu .osd-item { opacity: 0.9; display: grid; grid-template-columns: 1.1em 1fr auto; column-gap: 0.15em; align-items: center; margin: 0; row-gap: 0; }
+.pvm-osd-menu .osd-item.selected { opacity: 1; }
+.pvm-osd-menu .osd-arrow {
+  display: inline-block;
+  width: 1.5em; /* room for slightly larger glyph */
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.65em; /* slightly bigger arrow overall */
+  line-height: 0; /* prevent arrow glyph from expanding row height */
+  /* nudge slightly down and to the right; keep horizontal squash */
+  transform: translate(-0.30em, -0.29em) scaleX(0.55);
+}
+/* In main menu rows, give the arrow a little breathing room from the text */
+.pvm-osd-menu .osd-item .osd-arrow { margin-right: 0.18em; }
+.pvm-osd-menu .osd-val {
+  grid-column: 3;
+  justify-self: end;
+  display: inline-block;
+  margin-left: 0;
+  color: #cfcfcf;
+}
+.pvm-osd-menu .osd-footer {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 6%;
+  display: grid;
+  /* Place ENTER near SELECT by collapsing spacer between them */
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  font-size: 1em; /* match main OSD font size */
+  opacity: 0.9;
+}
+.pvm-osd-menu.geom-mode .osd-title,
+.pvm-osd-menu.geom-mode .osd-footer {
+  display: none;
+}
+.pvm-osd-menu .osd-geom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 5%;
+}
+.pvm-osd-menu .geom-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.pvm-osd-menu .geom-input {
+  font-weight: 400; /* match regular menu weight */
+}
+.pvm-osd-menu .geom-param {
+  margin-top: 0.4em;
+}
+.pvm-osd-menu .geom-right {
+  position: absolute;
+  right: 7%;
+  top: 0;
+  text-align: right;
+  padding-right: 0; /* do not shift the whole right section */
+}
+.pvm-osd-menu .geom-write {
+  margin-top: 0.25em;
+  font-size: 1em; /* same size as other OSD text */
+  text-transform: uppercase;
+  text-align: right; /* align right edge with star */
+  margin-right: 0.74em; /* nudge WRITE slightly left */
+}
+.pvm-osd-menu .geom-star {
+  position: static; /* inline, share baseline with numbers */
+  display: inline-block;
+  transform: translateY(0.40em); /* lower to match baseline visually */
+  font-size: 1.15em; /* make * match letter height visually */
+  line-height: 1;
+}
+.pvm-osd-menu .geom-star-slot {
+  display: inline-block;
+  width: 1em; /* reserve space so numbers don't shift when star appears */
+  text-align: left;
+  margin-left: 0.15em; /* fine spacing after index number */
+  margin-right: 0.50em; /* move star a bit further left than WRITE */
+}
+.pvm-osd-menu .geom-arrow { margin-right: 0.4em; display: inline-block; }
+.pvm-osd-menu .geom-right .osd-arrow {
+  /* pull the arrow closer to the numeric value in geometry view */
+  width: 0.85em;
+  margin-right: -0.25em;
+  /* move arrow itself slightly to the right */
+  transform: translate(-0.06em, -0.29em) scaleX(0.55);
+}
+.pvm-osd-menu .geom-val { display: inline-block; min-width: 2ch; text-align: right; }
+.pvm-osd-menu .geom-sup { display: inline-block; margin-left: 0.6em; opacity: 0.9; }
+.pvm-osd-menu .osd-foot-left { justify-self: start; }
+.pvm-osd-menu .osd-foot-enter { justify-self: start; margin-left: 0.9em; }
+.pvm-osd-menu .osd-foot-menu { justify-self: end; }
+.pvm-osd-menu .osd-ico { display: inline-block; height: 0.765em; vertical-align: middle; image-rendering: auto; opacity: 0.95; filter: drop-shadow(1px 0 0 #000); }
+.pvm-osd-menu .osd-ico-enter { height: 0.861em; }
+.pvm-osd-menu .osd-ico-menu { height: 0.797em; }
+.pvm-osd-menu .osd-ico-arrows { margin-right: 0.14em; height: 0.893em; }
+.pvm-osd-menu .osd-foot-text { margin-left: 0; letter-spacing: 0.08em; }
+/* (removed kbd pills; OSD footer uses image icons) */
+
+/* --- page load fade-in --- */
+
+.chatbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  background: none;
+}
+.chatbox.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.chatbox-content {
+  width: 90vw;
+  max-width: 500px;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Responsive h1 scaling, gallery grid and container padding merged */
+@media (max-width: 550px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .gallery-container {
+    padding: 32px 0 56px;
+  }
+  :root { --pvm-graphic-width: 320px; }
+  .home-title { font-size: 2rem; margin: 0.25em 0; }
+  .message { margin: 0.5em 0 1em; }
+  .gallery-heading {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .gallery-nav {
+    margin: 12px 0 0;
+    gap: 12px;
+  }
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* gallery detail */
+.detail-previews {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.detail-previews img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border-radius: 4px;
+}
+.detail-previews img:hover {
+  opacity: 0.8;
+}
+
+/* Ensure detail wrapper can host absolute overlays */
+.artwork-wrapper {
+  position: relative;
+  /* Make anything positioned under the image visible (no layout push) */
+  overflow: visible;
+  /* Make wrapper shrink to media width and center it; allows right-edge alignment */
+  display: grid;
+  justify-content: center;
+  width: fit-content;
+  padding: 0; /* remove any padding including bottom */
+}
+
+/* Compare button (biohazard only) */
+.compare-controls {
+  position: static; /* in flow with a gap under image */
+  display: flex;
+  justify-content: center; /* center the button under the image */
+  gap: 0;
+  margin: 6px 0 0 0;
+  padding: 0;
+  justify-self: center; /* align to media center within wrapper grid */
+}
+.compare-btn {
+  position: relative;
+  display: inline-block;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 0; /* make box fit SVG exactly */
+  -webkit-appearance: none;
+  appearance: none;
+}
+.compare-btn svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  /* Remove heavy drop-shadows to keep SVG crisp */
+  filter: none;
+  shape-rendering: geometricPrecision;
+}
+/* Use small pupil and morph it via transform; always hide the big path */
+/* Morph-like dilation: cross-fade + scale small -> big */
+.compare-btn svg #pupil-small,
+.compare-btn svg #pupil-big {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  transition: transform 220ms cubic-bezier(.2,.7,.2,1), opacity 200ms ease;
+}
+/* default: show small, prepare big slightly smaller and transparent */
+.compare-btn svg #pupil-small { opacity: 1; transform: scale(1); }
+.compare-btn svg #pupil-big { opacity: 0; transform: scale(0.7); }
+/* toggled: hide small as it widens, reveal big at full size */
+.compare-btn.is-on svg #pupil-small { opacity: 0; transform: scale(2.1, 1.15); }
+.compare-btn.is-on svg #pupil-big { opacity: 1; transform: scale(1); }
+.compare-btn:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.8);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.compare-btn::after {
+  content: 'compare';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  margin: 0;
+  margin-right: 6px;
+  padding: 2px 6px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px) translateY(-50%);
+  transition: opacity .15s ease, transform .15s ease;
+  pointer-events: none;
+  display: inline-block;
+  line-height: 1; /* prevent clipping from button's line-height: 0 */
+}
+.compare-btn:hover::after,
+.compare-btn:focus-visible::after {
+  opacity: 1;
+  transform: translateX(0) translateY(-50%);
+}
